@@ -27,6 +27,7 @@ def export_data():
     data = request.json
     format_type = data.get("format")
 
+    # Assuming `esg_data` is part of the request JSON payload
     df = pd.DataFrame(data['esg_data'])
 
     if format_type == 'csv':
@@ -36,8 +37,7 @@ def export_data():
         xml_data = df.to_xml()
         return xml_data, {'Content-Disposition': 'attachment;filename=esg_data.xml'}
     elif format_type == 'pdf':
-        # You can use a tool like ReportLab or similar to export as PDF
-        # For brevity, return a simple message here
+        # You can implement PDF export using libraries like ReportLab or similar
         return jsonify({"message": "PDF export not implemented yet"})
     return jsonify({"error": "Invalid format"}), 400
 
