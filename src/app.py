@@ -1,8 +1,8 @@
-# app.py
 from flask import Flask, jsonify, request
 import requests
 import pandas as pd
 from flask_cors import CORS
+import openai
 
 app = Flask(__name__)
 CORS(app)
@@ -41,11 +41,6 @@ def export_data():
         return jsonify({"message": "PDF export not implemented yet"})
     return jsonify({"error": "Invalid format"}), 400
 
-if __name__ == '__main__':
-    app.run(debug=True)
-# app.py - continue from previous code
-import openai
-
 # Add a new route for the LLM integration
 @app.route('/ask_esg', methods=['POST'])
 def ask_esg():
@@ -61,3 +56,6 @@ def ask_esg():
         return jsonify({"response": response['choices'][0]['text']})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
